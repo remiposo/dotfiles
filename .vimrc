@@ -9,6 +9,7 @@ filetype plugin indent on
 "plugin
 call plug#begin('~/.vim/plugged')
 Plug 'w0ng/vim-hybrid'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 call plug#end()
 
@@ -42,6 +43,7 @@ set background=dark
 colorscheme hybrid
 "行番号の色の設定
 hi lineNr ctermfg=243 guifg=#707880
+hi CursorLine ctermbg=236
 
 "行番号の表示
 set number
@@ -109,10 +111,11 @@ augroup EndSpace
   autocmd VimEnter,WinEnter * match EndSpace /\s\+$/
 augroup END
 
+"動かないので修正必須
 "クリップボードから貼り付けた文の整形
 if &term =~ "xterm"
-  let &t_SI .= "\e[?2004h"
-  let &t_EI .= "\e[?2004l"
+  let &t_ti .= "\e[?2004h"
+  let &t_te .= "\e[?2004l"
   let &pastetoggle = "\e[201~"
 
   function XTermPasteBegin(ret)
@@ -120,8 +123,31 @@ if &term =~ "xterm"
     return a:ret
   endfunction
 
+  noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
   inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+  cnoremap <special> <Esc>[200~ <nop>
+  cnoremap <special> <Esc>[201~ <nop>
 endif
+
+"フォーカスがvimから外れた際の背景色の変更
+let g:InactiveBackGround = 'ctermbg=236'
+augroup ChangeBackGround
+  autocmd!
+  autocmd FocusGained * hi Normal ctermbg=234
+  autocmd FocusGained * hi NonText ctermbg=234
+  autocmd FocusGained * hi SpecialKey ctermbg=234
+  autocmd FocusGained * hi EndOfBuffer ctermbg=none
+  autocmd FocusLost * execute('hi Normal '.g:InactiveBackGround)
+  autocmd FocusLost * execute('hi NonText '.g:InactiveBackGround)
+  autocmd FocusLost * execute('hi SpecialKey '.g:InactiveBackGround)
+  autocmd FocusLost * execute('hi EndOfBuffer '.g:InactiveBackGround)
+augroup end
+"インサートモードでステータスラインの色の変更
+augroup InsertHook
+  autocmd!
+  autocmd InsertEnter * hi StatusLine ctermbg=221
+  autocmd InsertLeave * hi StatusLine ctermbg=234
+augroup END
 
 "NERD TREE
 noremap <C-n> :NERDTreeToggle<CR>
