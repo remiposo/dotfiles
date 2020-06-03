@@ -6,6 +6,14 @@ syntax on
 "ファイル形式別プラグイン,インデントの有効化
 filetype plugin indent on
 
+"vim-plugを自動でインストール
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+let g:plug_threads = 1
+
 "plugin
 call plug#begin('~/.vim/plugged')
 Plug 'w0ng/vim-hybrid'
