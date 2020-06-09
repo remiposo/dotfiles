@@ -119,6 +119,8 @@ augroup EndSpace
   autocmd VimEnter,WinEnter * match EndSpace /\s\+$/
 augroup END
 
+"ヤンクをクリップボードに保存
+set clipboard+=unnamed
 "動かないので修正必須
 "クリップボードから貼り付けた文の整形
 if &term =~ "xterm"
