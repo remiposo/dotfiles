@@ -1,10 +1,10 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-"構文ハイライトの有効化
-syntax on
 "ファイル形式別プラグイン,インデントの有効化
 filetype plugin indent on
+"構文ハイライトの有効化
+syntax on
 
 "vim-plugを自動でインストール
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -19,6 +19,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'w0ng/vim-hybrid'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'guns/xterm-color-table.vim'
 call plug#end()
 
 "normal
@@ -46,7 +47,6 @@ nnoremap sj <C-w>j
 nnoremap sl <C-w>l
 
 "colorscheme
-set t_Co=256
 set background=dark
 colorscheme hybrid
 "行番号の色の設定
@@ -139,19 +139,6 @@ if &term =~ "xterm"
   cnoremap <special> <Esc>[201~ <nop>
 endif
 
-"フォーカスがvimから外れた際の背景色の変更
-let g:InactiveBackGround = 'ctermbg=236'
-augroup ChangeBackGround
-  autocmd!
-  autocmd FocusGained * hi Normal ctermbg=234
-  autocmd FocusGained * hi NonText ctermbg=234
-  autocmd FocusGained * hi SpecialKey ctermbg=234
-  autocmd FocusGained * hi EndOfBuffer ctermbg=none
-  autocmd FocusLost * execute('hi Normal '.g:InactiveBackGround)
-  autocmd FocusLost * execute('hi NonText '.g:InactiveBackGround)
-  autocmd FocusLost * execute('hi SpecialKey '.g:InactiveBackGround)
-  autocmd FocusLost * execute('hi EndOfBuffer '.g:InactiveBackGround)
-augroup end
 "インサートモードでステータスラインの色の変更
 augroup InsertHook
   autocmd!
