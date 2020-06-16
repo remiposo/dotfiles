@@ -37,8 +37,8 @@ inoremap <C-f> <Right>
 
 "画面分割の設定
 nnoremap s <Nop>
-nnoremap ss :split<Return><C-w>w
-nnoremap sv :vsplit<Return><C-w>w
+nnoremap ss :vsplit<Return><C-w>w
+nnoremap sv :split<Return><C-w>w
 nnoremap <Space> <C-w>w
 nnoremap sh <C-w>h
 nnoremap sk <C-w>k
