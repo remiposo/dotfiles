@@ -20,6 +20,7 @@ Plug 'w0ng/vim-hybrid'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'guns/xterm-color-table.vim'
+Plug 'slim-template/vim-slim'
 call plug#end()
 
 "normal
