@@ -1,6 +1,8 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+"モードラインを有効化
+set modeline
 "ファイル形式別プラグイン,インデントの有効化
 filetype plugin indent on
 "構文ハイライトの有効化
@@ -19,8 +21,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'w0ng/vim-hybrid'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'guns/xterm-color-table.vim'
 Plug 'slim-template/vim-slim'
+Plug 'chr4/nginx.vim'
 call plug#end()
 
 "normal
@@ -122,7 +124,8 @@ augroup END
 
 "ヤンクをクリップボードに保存
 set clipboard+=unnamed
-"動かないので修正必須
+
+"TODO 動きません
 "クリップボードから貼り付けた文の整形
 if &term =~ "xterm"
   let &t_ti .= "\e[?2004h"
