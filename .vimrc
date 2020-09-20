@@ -21,8 +21,10 @@ call plug#begin('~/.vim/plugged')
 Plug 'w0ng/vim-hybrid'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+"ハイライト系
 Plug 'slim-template/vim-slim'
 Plug 'chr4/nginx.vim'
+Plug 'posva/vim-vue'
 call plug#end()
 
 "normal
