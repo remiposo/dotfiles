@@ -104,6 +104,9 @@ set shiftwidth=2
 set tabstop=2
 "改行時のインデントの保持
 set autoindent
+"visulaモードでインデント調整後に選択範囲を開放しない
+vnoremap > >gv
+vnoremap < <gv
 
 "全角スペースの可視化
 highlight FullWidthSpace
@@ -153,4 +156,5 @@ augroup InsertHook
 augroup END
 
 "NERD TREE
+let NERDTreeShowHidden=1
 noremap <C-n> :NERDTreeToggle<CR>

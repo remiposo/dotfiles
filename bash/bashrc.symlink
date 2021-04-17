@@ -1,0 +1,11 @@
+# rbenv
+if [ -d $HOME/.rbenv ];then
+  export RBENV_ROOT=$HOME/.rbenv
+fi
+if [ -d "${RBENV_ROOT}" ];then
+  export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
+
+# starship
+eval "$(starship init bash)"
