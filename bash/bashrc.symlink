@@ -1,4 +1,13 @@
-# rbenv
+# Load alias files
+dotfiles_root=$HOME/.dotfiles
+if [ -d "${dotfiles_root}" ];then
+  for src in $(find "${dotfiles_root}" -maxdepth 2 -name '*.bash')
+  do
+    source "$src"
+  done
+fi
+
+# Setup rbenv
 if [ -d $HOME/.rbenv ];then
   export RBENV_ROOT=$HOME/.rbenv
 fi
@@ -7,5 +16,5 @@ if [ -d "${RBENV_ROOT}" ];then
   eval "$(rbenv init -)"
 fi
 
-# starship
+# Setup starship
 eval "$(starship init bash)"
