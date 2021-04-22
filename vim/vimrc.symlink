@@ -19,6 +19,9 @@ let g:plug_threads = 1
 "plugin
 call plug#begin('~/.vim/plugged')
 Plug 'w0ng/vim-hybrid'
+Plug 'tpope/vim-commentary'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 "ハイライト系
@@ -32,8 +35,9 @@ nnoremap j gj
 nnoremap gj j
 nnoremap k gk
 nnoremap gk k
-nnoremap <C-e> $
 nnoremap <C-a> ^
+nnoremap <C-e> $
+nnoremap q <Nop>
 
 "insert
 inoremap <C-b> <Left>
@@ -43,8 +47,8 @@ inoremap <C-f> <Right>
 
 "画面分割の設定
 nnoremap s <Nop>
-nnoremap ss :vsplit<Return><C-w>w
-nnoremap sv :split<Return><C-w>w
+nnoremap ss :split<Return><C-w>w
+nnoremap sv :vsplit<Return><C-w>w
 nnoremap <Space> <C-w>w
 nnoremap sh <C-w>h
 nnoremap sk <C-w>k
@@ -83,6 +87,8 @@ set showmatch
 set noswapfile
 "バックアップファイルの無効化
 set nobackup
+"8進数を使わない
+set nrformats=
 
 "検索時に小文字で入力した場合、大文字と区別しない
 set ignorecase
@@ -104,9 +110,6 @@ set shiftwidth=2
 set tabstop=2
 "改行時のインデントの保持
 set autoindent
-"visulaモードでインデント調整後に選択範囲を開放しない
-vnoremap > >gv
-vnoremap < <gv
 
 "全角スペースの可視化
 highlight FullWidthSpace
