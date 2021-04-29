@@ -35,9 +35,9 @@ nnoremap j gj
 nnoremap gj j
 nnoremap k gk
 nnoremap gk k
-nnoremap <C-a> ^
-nnoremap <C-e> $
 nnoremap q <Nop>
+noremap <C-a> ^
+noremap <C-e> $
 
 "insert
 inoremap <C-b> <Left>
