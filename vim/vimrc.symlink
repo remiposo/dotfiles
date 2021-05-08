@@ -55,6 +55,10 @@ nnoremap sk <C-w>k
 nnoremap sj <C-w>j
 nnoremap sl <C-w>l
 
+"command
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
 "colorscheme
 set background=dark
 colorscheme hybrid
