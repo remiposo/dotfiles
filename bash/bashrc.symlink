@@ -16,5 +16,31 @@ if [ -d "${RBENV_ROOT}" ];then
   eval "$(rbenv init -)"
 fi
 
+# Setup goenv
+if [ -d $HOME/.goenv ];then
+  export GOENV_ROOT=$HOME/.goenv
+fi
+if [ -d "${GOENV_ROOT}" ];then
+  export PATH="$GOENV_ROOT/bin:$PATH"
+  eval "$(goenv init -)"
+  export PATH="$GOROOT/bin:$PATH"
+  export PATH="$PATH:$GOPATH/bin"
+fi
+
+# Setup nodenv
+if [ -d $HOME/.nodenv ];then
+  export NODENV_ROOT=$HOME/.nodenv
+fi
+if [ -d "${NODENV_ROOT}" ];then
+  export PATH="$NODENV_ROOT/bin:$PATH"
+  eval "$(nodenv init -)"
+fi
+
+# Setup jdk
+if [ -d $HOME/.jdk ];then
+  export JDK_ROOT=$HOME/.jdk
+  export PATH="$JDK_ROOT/bin:$PATH"
+fi
+
 # Setup starship
 eval "$(starship init bash)"
