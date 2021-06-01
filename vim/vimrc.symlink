@@ -115,6 +115,10 @@ set tabstop=2
 "改行時のインデントの保持
 set autoindent
 
+"Ctags
+set tags=.tags;$HOME
+nnoremap <C-]> g<C-]>
+
 "全角スペースの可視化
 highlight FullWidthSpace
   \ cterm=underline
