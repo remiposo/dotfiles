@@ -16,17 +16,6 @@ if [ -d "${RBENV_ROOT}" ];then
   eval "$(rbenv init -)"
 fi
 
-# Setup goenv
-if [ -d $HOME/.goenv ];then
-  export GOENV_ROOT=$HOME/.goenv
-fi
-if [ -d "${GOENV_ROOT}" ];then
-  export PATH="$GOENV_ROOT/bin:$PATH"
-  eval "$(goenv init -)"
-  export PATH="$GOROOT/bin:$PATH"
-  export PATH="$PATH:$GOPATH/bin"
-fi
-
 # Setup nodenv
 if [ -d $HOME/.nodenv ];then
   export NODENV_ROOT=$HOME/.nodenv
@@ -45,4 +34,10 @@ fi
 # Setup starship
 if type starship > /dev/null 2>&1; then
   eval "$(starship init bash)"
+fi
+
+# Setup go
+if [ -d "/usr/local/go" ];then
+  export GOPATH=$HOME/go
+  export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 fi
