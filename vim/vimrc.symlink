@@ -63,8 +63,14 @@ cnoremap <C-n> <Down>
 set background=dark
 colorscheme hybrid
 "行番号の色の設定
-hi lineNr ctermfg=243 guifg=#707880
-hi CursorLine ctermbg=236
+hi lineNr ctermfg=243
+hi CursorLine ctermbg=238
+"背景透過
+hi Normal ctermbg=none
+hi NonText ctermbg=none
+hi LineNr ctermbg=none
+hi Folded ctermbg=none
+hi EndOfBuffer ctermbg=none
 
 "行番号の表示
 set number
