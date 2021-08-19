@@ -24,12 +24,14 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go'
 "ハイライト系
 Plug 'slim-template/vim-slim'
 Plug 'chr4/nginx.vim'
 Plug 'posva/vim-vue'
 call plug#end()
+
+let mapleader = ","
 
 "normal
 nnoremap j gj
@@ -176,3 +178,9 @@ augroup END
 "NERD TREE
 let NERDTreeShowHidden=1
 noremap <C-n> :NERDTreeToggle<CR>
+
+"vim-go
+let g:go_fmt_command = "goimports"
+let g:go_metalinter_autosave = 1
+let g:go_list_type = "quickfix"
+nnoremap <leader>c :cclose<CR>
