@@ -23,7 +23,7 @@ Plug 'tpope/vim-commentary'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 Plug 'fatih/vim-go'
 "ハイライト系
 Plug 'slim-template/vim-slim'
@@ -157,12 +157,34 @@ augroup InsertHook
   autocmd InsertLeave * hi StatusLine ctermbg=234
 augroup END
 
-"NERD TREE
-let NERDTreeShowHidden=1
+"#--------------------------------------------------#
+"# scrooloose/nerdtree                              #
+"#--------------------------------------------------#
+augroup nerdtree
+  autocmd!
+augroup END
+" toggle nerdtree with <C-n>
 noremap <C-n> :NERDTreeToggle<CR>
+" show hidden files
+let NERDTreeShowHidden = 1
+" change default key maps
+autocmd nerdtree FileType nerdtree nmap <buffer><nowait> s :call<Space>nerdtree#ui_glue#invokeKeyMap('i')<CR>
+autocmd nerdtree FileType nerdtree nmap <buffer><nowait> v :call<Space>nerdtree#ui_glue#invokeKeyMap('s')<CR>
+" open nerdtree when starting vim without any args or stdin
+function! s:init_nerdtree() abort
+  if argc() == 0 && !exists('s:std_in')
+    NERDTree
+    wincmd p
+    close
+  endif
+endfunction
+autocmd nerdtree StdinReadPre * let s:std_in=1
+autocmd nerdtree VimEnter * call s:init_nerdtree()
 
 "vim-go
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
 let g:go_list_type = "quickfix"
+nnoremap <leader>n :cnext<CR>
+nnoremap <leader>p :cprevious<CR>
 nnoremap <leader>c :cclose<CR>
