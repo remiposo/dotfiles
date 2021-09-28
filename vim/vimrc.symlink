@@ -14,7 +14,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-let g:plug_threads = 1
 
 "plugin
 call plug#begin('~/.vim/plugged')
@@ -23,7 +22,12 @@ Plug 'tpope/vim-commentary'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'scrooloose/nerdtree'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/glyph-palette.vim'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'fatih/vim-go'
 "ハイライト系
 Plug 'slim-template/vim-slim'
@@ -68,6 +72,7 @@ colorscheme hybrid
 "行番号の色の設定
 hi lineNr ctermfg=243
 hi CursorLine ctermbg=238
+hi Visual ctermbg=238
 "背景透過
 hi Normal ctermbg=none
 hi NonText ctermbg=none
@@ -77,18 +82,12 @@ hi EndOfBuffer ctermbg=none
 
 "行番号の表示
 set number
-"タイトルの表示
-set title
-"ステータスラインの表示
-set laststatus=2
-"ステータスラインのフォーマットの設定
-set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\ [TYPE=%Y]\ %=[CODE=0x%02B]\ [POS=%l/%L(%02v)]
 "入力中のコマンドの表示
 set showcmd
+" disable default showmode
+set noshowmode
 "コマンド補完の設定
 set wildmenu
-"現在のモードの表示
-set showmode
 "現在の行を強調表示
 set cursorline
 "ビープ音の無効化
@@ -150,38 +149,84 @@ augroup END
 "ヤンクをクリップボードに保存
 set clipboard+=unnamed
 
-"インサートモードでステータスラインの色の変更
-augroup InsertHook
+"#--------------------------------------------------#
+"# lambdalisue/glyph-palette.vim                    #
+"#--------------------------------------------------#
+augroup __glyph-palette__
   autocmd!
-  autocmd InsertEnter * hi StatusLine ctermbg=221
-  autocmd InsertLeave * hi StatusLine ctermbg=234
+  autocmd FileType fern call glyph_palette#apply()
 augroup END
+
+"#--------------------------------------------------#
+"# lambdalisue/fern                                 #
+"#--------------------------------------------------#
+" use nerdfont to render tree items
+let g:fern#renderer = 'nerdfont'
+" hide cursor
+let g:fern#hide_cursor = 1
+" show hidden files
+let g:fern#default_hidden = 1
+" toggle fern with <C-n>
+nnoremap <silent> <C-n> :<C-u>Fern . -drawer -stay -keep -toggle -reveal=%<CR>
+
+function! s:vimenter_fern() abort
+  " open fern when no args given
+  if argc() == 0 && !exists('s:std_in')
+    Fern . -drawer -keep -toggle
+  endif
+endfunction
+
+function! s:filetype_fern() abort
+  " hide number
+  set nonumber
+  " use open:select as default
+  nmap <buffer> <Plug>(fern-action-open) <Plug>(fern-action-open:select)
+  " set key maps
+  nmap <buffer><nowait> s <Plug>(fern-action-open:split)
+  nmap <buffer><nowait> v <Plug>(fern-action-open:vsplit)
+  nmap <buffer><nowait> r <Plug>(fern-action-reload)
+endfunction
+
+augroup __fern__
+  autocmd!
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * ++nested call s:vimenter_fern()
+  autocmd FileType fern call s:filetype_fern()
+augroup END
+
+"#--------------------------------------------------#
+"# vim-airline/vim-airline                          #
+"#--------------------------------------------------#
+" enable tabline extension
+let g:airline#extensions#tabline#enabled = 1
 
 "#--------------------------------------------------#
 "# scrooloose/nerdtree                              #
 "#--------------------------------------------------#
-augroup nerdtree
-  autocmd!
-augroup END
+"augroup nerdtree
+"  autocmd!
+"augroup END
 " toggle nerdtree with <C-n>
-noremap <C-n> :NERDTreeToggle<CR>
+"noremap <C-n> :NERDTreeToggle<CR>
 " show hidden files
-let NERDTreeShowHidden = 1
+"let NERDTreeShowHidden = 1
 " change default key maps
-autocmd nerdtree FileType nerdtree nmap <buffer><nowait> s :call<Space>nerdtree#ui_glue#invokeKeyMap('i')<CR>
-autocmd nerdtree FileType nerdtree nmap <buffer><nowait> v :call<Space>nerdtree#ui_glue#invokeKeyMap('s')<CR>
+"autocmd nerdtree FileType nerdtree nmap <buffer><nowait> s :call<Space>nerdtree#ui_glue#invokeKeyMap('i')<CR>
+"autocmd nerdtree FileType nerdtree nmap <buffer><nowait> v :call<Space>nerdtree#ui_glue#invokeKeyMap('s')<CR>
 " open nerdtree when starting vim without any args or stdin
-function! s:init_nerdtree() abort
-  if argc() == 0 && !exists('s:std_in')
-    NERDTree
-    wincmd p
-    close
-  endif
-endfunction
-autocmd nerdtree StdinReadPre * let s:std_in=1
-autocmd nerdtree VimEnter * call s:init_nerdtree()
+"function! s:init_nerdtree() abort
+"  if argc() == 0 && !exists('s:std_in')
+"    NERDTree
+"    wincmd p
+"    close
+"  endif
+"endfunction
+"autocmd nerdtree StdinReadPre * let s:std_in=1
+"autocmd nerdtree VimEnter * call s:init_nerdtree()
 
-"vim-go
+"#--------------------------------------------------#
+"# fatih/vim-go                                     #
+"#--------------------------------------------------#
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
 let g:go_list_type = "quickfix"
