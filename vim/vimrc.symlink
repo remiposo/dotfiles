@@ -17,18 +17,22 @@ endif
 
 "plugin
 call plug#begin('~/.vim/plugged')
-Plug 'w0ng/vim-hybrid'
-Plug 'tpope/vim-commentary'
-Plug 'kana/vim-textobj-user'
+Plug 'airblade/vim-gitgutter'
+Plug 'fatih/vim-go'
 Plug 'kana/vim-textobj-entire'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'kana/vim-textobj-user'
 Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/nerdfont.vim'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'fatih/vim-go'
+Plug 'w0ng/vim-hybrid'
+
 "ハイライト系
 Plug 'slim-template/vim-slim'
 Plug 'chr4/nginx.vim'
@@ -67,6 +71,7 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
 "colorscheme
+set t_Co=256
 set background=dark
 colorscheme hybrid
 "行番号の色の設定
@@ -81,6 +86,10 @@ hi Folded ctermbg=none
 hi EndOfBuffer ctermbg=none
 hi SignColumn ctermbg=none
 
+" always show signcolumn
+set signcolumn=yes
+" set updatetime 4000->300
+set updatetime=300
 "行番号の表示
 set number
 "入力中のコマンドの表示
@@ -151,6 +160,12 @@ augroup END
 set clipboard+=unnamed
 
 "#--------------------------------------------------#
+"# airblade/vim-gitgutter                           #
+"#--------------------------------------------------#
+" disable gitgutter at startup
+let g:gitgutter_enabled=0
+
+"#--------------------------------------------------#
 "# lambdalisue/glyph-palette.vim                    #
 "#--------------------------------------------------#
 augroup __glyph-palette__
@@ -198,6 +213,8 @@ augroup END
 "#--------------------------------------------------#
 "# vim-airline/vim-airline                          #
 "#--------------------------------------------------#
+" use powerline fonts
+let g:airline_powerline_fonts = 1
 " enable tabline extension
 let g:airline#extensions#tabline#enabled = 1
 " dont show buffers on the right of tabs
@@ -224,14 +241,14 @@ let g:airline_theme = 'hybrid'
 "augroup nerdtree
 "  autocmd!
 "augroup END
-" toggle nerdtree with <C-n>
+"" toggle nerdtree with <C-n>
 "noremap <C-n> :NERDTreeToggle<CR>
-" show hidden files
+"" show hidden files
 "let NERDTreeShowHidden = 1
-" change default key maps
+"" change default key maps
 "autocmd nerdtree FileType nerdtree nmap <buffer><nowait> s :call<Space>nerdtree#ui_glue#invokeKeyMap('i')<CR>
 "autocmd nerdtree FileType nerdtree nmap <buffer><nowait> v :call<Space>nerdtree#ui_glue#invokeKeyMap('s')<CR>
-" open nerdtree when starting vim without any args or stdin
+"" open nerdtree when starting vim without any args or stdin
 "function! s:init_nerdtree() abort
 "  if argc() == 0 && !exists('s:std_in')
 "    NERDTree
