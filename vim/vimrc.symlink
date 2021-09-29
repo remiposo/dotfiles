@@ -8,17 +8,30 @@ filetype plugin indent on
 "構文ハイライトの有効化
 syntax on
 
-"vim-plugを自動でインストール
+"#--------------------------------------------------#
+"# junegunn/vim-plug                                #
+"#--------------------------------------------------#
+" install vim-plug if not found
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+" run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
 
-"plugin
+" plugins
 call plug#begin('~/.vim/plugged')
-Plug 'airblade/vim-gitgutter'
+" colorscheme
 Plug 'arcticicestudio/nord-vim'
+Plug 'w0ng/vim-hybrid'
+" highlight
+Plug 'slim-template/vim-slim'
+Plug 'chr4/nginx.vim'
+Plug 'posva/vim-vue'
+
+Plug 'airblade/vim-gitgutter'
 Plug 'edkolev/tmuxline.vim'
 Plug 'fatih/vim-go'
 Plug 'kana/vim-textobj-entire'
@@ -32,13 +45,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"ハイライト系
-Plug 'slim-template/vim-slim'
-Plug 'chr4/nginx.vim'
-Plug 'posva/vim-vue'
 call plug#end()
-
-let mapleader = ","
 
 "#--------------------------------------------------#
 "# arcticicestudio/nord-vim                         #
@@ -54,7 +61,22 @@ augroup __nord__
   autocmd!
   autocmd ColorScheme nord call s:customize_nord()
 augroup END
-colorscheme nord
+
+"#--------------------------------------------------#
+"# w0ng/vim-hybrid                                  #
+"#--------------------------------------------------#
+function! s:pre_setup_hybrid() abort
+  set background=dark
+  let g:hybrid_custom_term_colors = 1
+  let g:hybrid_reduced_contrast = 1
+endfunction
+augroup __hybrid__
+  autocmd!
+  autocmd ColorSchemePre hybrid call s:pre_setup_hybrid()
+augroup END
+
+" set default colorscheme
+colorscheme hybrid
 
 "normal
 nnoremap j gj
@@ -85,6 +107,7 @@ nnoremap sl <C-w>l
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
+let mapleader = ","
 " always show signcolumn
 set signcolumn=yes
 " set updatetime 4000->300
