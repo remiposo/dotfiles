@@ -18,6 +18,8 @@ endif
 "plugin
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
+Plug 'arcticicestudio/nord-vim'
+Plug 'edkolev/tmuxline.vim'
 Plug 'fatih/vim-go'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
@@ -26,13 +28,10 @@ Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/nerdfont.vim'
-Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0ng/vim-hybrid'
-
 "ハイライト系
 Plug 'slim-template/vim-slim'
 Plug 'chr4/nginx.vim'
@@ -40,6 +39,15 @@ Plug 'posva/vim-vue'
 call plug#end()
 
 let mapleader = ","
+
+"#--------------------------------------------------#
+"# arcticicestudio/nord-vim                         #
+"#--------------------------------------------------#
+augroup __nord__
+  autocmd!
+  autocmd ColorScheme nord hi Visual ctermbg=0 ctermfg=6
+augroup END
+colorscheme nord
 
 "normal
 nnoremap j gj
@@ -69,22 +77,6 @@ nnoremap sl <C-w>l
 "command
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-
-"colorscheme
-set t_Co=256
-set background=dark
-colorscheme hybrid
-"行番号の色の設定
-hi lineNr ctermfg=243
-hi CursorLine ctermbg=238
-hi Visual ctermbg=238
-"背景透過
-hi Normal ctermbg=none
-hi NonText ctermbg=none
-hi LineNr ctermbg=none
-hi Folded ctermbg=none
-hi EndOfBuffer ctermbg=none
-hi SignColumn ctermbg=none
 
 " always show signcolumn
 set signcolumn=yes
@@ -168,6 +160,12 @@ let g:gitgutter_signs=0
 nnoremap <leader>g :GitGutterSignsToggle<CR>
 
 "#--------------------------------------------------#
+"# edkolev/tmuxline.vim                             #
+"#--------------------------------------------------#
+" set tmux preset
+let g:tmuxline_preset = 'powerline'
+
+"#--------------------------------------------------#
 "# lambdalisue/glyph-palette.vim                    #
 "#--------------------------------------------------#
 augroup __glyph-palette__
@@ -221,24 +219,20 @@ augroup END
 let g:airline_powerline_fonts = 1
 " enable tabline extension
 let g:airline#extensions#tabline#enabled = 1
+" dont show buffers
+let g:airline#extensions#tabline#show_buffers = 0
 " dont show buffers on the right of tabs
 let g:airline#extensions#tabline#show_splits = 0
+" dont show tab count on the right of tabs
+let g:airline#extensions#tabline#show_tab_count = 0
 " remove 'X' at the end of the tabline
 let g:airline#extensions#tabline#show_close_button = 0
-" show file name only
-let g:airline#extensions#tabline#fnamemod = ':t'
 " dont show tabs or buffers label
-let g:airline#extensions#tabline#tabs_label = ''
-let g:airline#extensions#tabline#buffers_label = ''
-" dont show tab count
-let g:airline#extensions#tabline#show_tab_count = 0
-
-"#--------------------------------------------------#
-"# vim-airline/vim-airline-themes                   #
-"#--------------------------------------------------#
-" set color theme of airline
-let g:airline_theme = 'hybrid'
-
+let g:airline#extensions#tabline#show_tab_type = 0
+" dont show tabline when single tab
+let g:airline#extensions#tabline#tab_min_count = 2
+" show tab index (not split count)
+let g:airline#extensions#tabline#tab_nr_type = 1
 "#--------------------------------------------------#
 "# scrooloose/nerdtree                              #
 "#--------------------------------------------------#
