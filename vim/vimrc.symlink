@@ -43,9 +43,16 @@ let mapleader = ","
 "#--------------------------------------------------#
 "# arcticicestudio/nord-vim                         #
 "#--------------------------------------------------#
+function! s:customize_nord() abort
+  hi Visual ctermbg=0 ctermfg=6
+  hi DiffAdd cterm=NONE
+  hi DiffChange cterm=NONE
+  hi DiffDelete cterm=NONE
+  hi DiffText cterm=NONE
+endfunction
 augroup __nord__
   autocmd!
-  autocmd ColorScheme nord hi Visual ctermbg=0 ctermfg=6
+  autocmd ColorScheme nord call s:customize_nord()
 augroup END
 colorscheme nord
 
