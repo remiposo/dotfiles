@@ -162,8 +162,10 @@ set clipboard+=unnamed
 "#--------------------------------------------------#
 "# airblade/vim-gitgutter                           #
 "#--------------------------------------------------#
-" disable gitgutter at startup
-let g:gitgutter_enabled=0
+" dont show signs at startup
+let g:gitgutter_signs=0
+" toggle gitgutter_signs with <leader>g
+nnoremap <leader>g :GitGutterSignsToggle<CR>
 
 "#--------------------------------------------------#
 "# lambdalisue/glyph-palette.vim                    #
@@ -201,6 +203,8 @@ function! s:filetype_fern() abort
   nmap <buffer><nowait> s <Plug>(fern-action-open:split)
   nmap <buffer><nowait> v <Plug>(fern-action-open:vsplit)
   nmap <buffer><nowait> r <Plug>(fern-action-reload)
+  nmap <buffer><nowait> N <Plug>(fern-action-new-path)
+  nmap <buffer><nowait> <CR> <Plug>(fern-action-cd)<Plug>(fern-action-enter)
 endfunction
 
 augroup __fern__
