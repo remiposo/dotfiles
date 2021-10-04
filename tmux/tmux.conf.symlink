@@ -1,13 +1,19 @@
-# 256色を使用
-set -g default-terminal 'screen-256color'
-set -g terminal-overrides 'xterm:colors=256'
+# set term
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides "$TERM:Tc"
 
-# プレフィックスキーの変更
+# set prefix key
 set -g prefix C-q
 unbind C-b
 
+# enable mouse
+set -g mouse on
+
+# enable copy-mode-vi
+setw -g mode-keys vi
+
 # set status position
-set-option -g status-position top
+set -g status-position top
 
 # status settings from tmuxline.vim
 set -g status-justify "left"
@@ -29,25 +35,25 @@ set -g status-right "#[fg=colour0,bg=colour8,nobold,nounderscore,noitalics]#[
 setw -g window-status-format "#[fg=colour15,bg=colour8] #I #[fg=colour15,bg=colour8] #W "
 setw -g window-status-current-format "#[fg=colour8,bg=colour0,nobold,nounderscore,noitalics]#[fg=colour15,bg=colour0] #I #[fg=colour15,bg=colour0] #W #[fg=colour0,bg=colour8,nobold,nounderscore,noitalics]"
 
-# ペイン間の移動の設定
-bind  k select-pane -U
-bind  j select-pane -D
-bind  h select-pane -L
-bind  l select-pane -R
+# select pane with hjkl
+bind k select-pane -U
+bind j select-pane -D
+bind h select-pane -L
+bind l select-pane -R
 
-# ペインのリサイズの設定
+# resize pane with HJKL
 bind -r H resize-pane -L 5
 bind -r J resize-pane -D 5
 bind -r K resize-pane -U 5
 bind -r L resize-pane -R 5
 
-# ペインの分割の設定
-bind s split-window -v
-bind v split-window -h
+# create window and pane with pane_current_path
+bind c new-window -c "#{pane_current_path}"
+bind s split-window -vc "#{pane_current_path}"
+bind v split-window -hc "#{pane_current_path}"
 
-# ページアップでコピーモードに入る
-bind -n Pageup copy-mode -u
-
-# windowの破棄の設定
+# bind x to kill-pane without confirm
 bind x kill-pane
-bind q kill-window
+
+# bind mouseDragEnd to copy-pipe without cancel
+bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe

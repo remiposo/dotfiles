@@ -1,12 +1,6 @@
+" set encoding
 set encoding=utf-8
 scriptencoding utf-8
-
-"モードラインを有効化
-set modeline
-"ファイル形式別プラグイン,インデントの有効化
-filetype plugin indent on
-"構文ハイライトの有効化
-syntax on
 
 "#--------------------------------------------------#
 "# junegunn/vim-plug                                #
@@ -21,16 +15,15 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \| PlugInstall --sync | source $MYVIMRC
 \| endif
 
-" plugins
 call plug#begin('~/.vim/plugged')
-" colorscheme
+" colorschemes
 Plug 'arcticicestudio/nord-vim'
 Plug 'w0ng/vim-hybrid'
-" highlight
+" highlights
 Plug 'slim-template/vim-slim'
 Plug 'chr4/nginx.vim'
 Plug 'posva/vim-vue'
-
+" others
 Plug 'airblade/vim-gitgutter'
 Plug 'edkolev/tmuxline.vim'
 Plug 'fatih/vim-go'
@@ -41,6 +34,7 @@ Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/nerdfont.vim'
+Plug 'ojroques/vim-oscyank'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
@@ -48,70 +42,16 @@ Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 "#--------------------------------------------------#
-"# arcticicestudio/nord-vim                         #
+"# general settings                                 #
 "#--------------------------------------------------#
-function! s:customize_nord() abort
-  hi Visual ctermbg=0 ctermfg=6
-  hi DiffAdd cterm=NONE
-  hi DiffChange cterm=NONE
-  hi DiffDelete cterm=NONE
-  hi DiffText cterm=NONE
-endfunction
-augroup __nord__
-  autocmd!
-  autocmd ColorScheme nord call s:customize_nord()
-augroup END
-
-"#--------------------------------------------------#
-"# w0ng/vim-hybrid                                  #
-"#--------------------------------------------------#
-function! s:pre_setup_hybrid() abort
-  set background=dark
-  let g:hybrid_custom_term_colors = 1
-  let g:hybrid_reduced_contrast = 1
-endfunction
-augroup __hybrid__
-  autocmd!
-  autocmd ColorSchemePre hybrid call s:pre_setup_hybrid()
-augroup END
-
-" set default colorscheme
-colorscheme hybrid
-
-"normal
-nnoremap j gj
-nnoremap gj j
-nnoremap k gk
-nnoremap gk k
-nnoremap q <Nop>
-noremap <C-a> ^
-noremap <C-e> $
-
-"insert
-inoremap <C-b> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-f> <Right>
-
-"画面分割の設定
-nnoremap s <Nop>
-nnoremap ss :split<Return><C-w>w
-nnoremap sv :vsplit<Return><C-w>w
-nnoremap <Space> <C-w>w
-nnoremap sh <C-w>h
-nnoremap sk <C-w>k
-nnoremap sj <C-w>j
-nnoremap sl <C-w>l
-
-"command
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-
+" enable modeline
+set modeline
+" enable plugin and indent using filetype
+filetype plugin indent on
+" enable syntax
+syntax on
+" set mapleader
 let mapleader = ","
-" always show signcolumn
-set signcolumn=yes
-" set updatetime 4000->300
-set updatetime=300
 "行番号の表示
 set number
 "入力中のコマンドの表示
@@ -133,7 +73,6 @@ set noswapfile
 set nobackup
 "8進数を使わない
 set nrformats=
-
 "検索時に小文字で入力した場合、大文字と区別しない
 set ignorecase
 set smartcase
@@ -143,7 +82,6 @@ set incsearch
 set hlsearch
 "ESC連打でハイライトの無効化
 nnoremap <ESC><ESC> :nohlsearch<CR>
-
 "Tabの可視化
 set list listchars=tab:>-
 "Tabで半角スペースを入力
@@ -154,33 +92,94 @@ set shiftwidth=2
 set tabstop=2
 "改行時のインデントの保持
 set autoindent
+" set updatetime
+set updatetime=300
+" always show signcolumn
+set signcolumn=yes
 
-"Ctags
-set tags=.tags;$HOME
-nnoremap <C-]> g<C-]>
+"#--------------------------------------------------#
+"# common key maps                                  #
+"#--------------------------------------------------#
+"normal
+nnoremap j gj
+nnoremap gj j
+nnoremap k gk
+nnoremap gk k
+nnoremap q <Nop>
+noremap <C-a> ^
+noremap <C-e> $
+"insert
+inoremap <C-b> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-f> <Right>
+"画面分割の設定
+nnoremap s <Nop>
+nnoremap ss :split<Return><C-w>w
+nnoremap sv :vsplit<Return><C-w>w
+nnoremap <Space> <C-w>w
+nnoremap sh <C-w>h
+nnoremap sk <C-w>k
+nnoremap sj <C-w>j
+nnoremap sl <C-w>l
+"command
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
-"全角スペースの可視化
-highlight FullWidthSpace
-  \ cterm=underline
-  \ ctermfg=LightGreen
-  \ gui=underline
-  \ guifg=LightGreen
-augroup FullWidthSpace
+
+"##=============##
+"##  highlight  ##
+"##=============##
+"#--------------------------------------------------#
+"# arcticicestudio/nord-vim                         #
+"#--------------------------------------------------#
+function! s:customize_nord() abort
+  hi Visual ctermbg=0 ctermfg=6
+  hi DiffAdd cterm=NONE
+  hi DiffChange cterm=NONE
+  hi DiffDelete cterm=NONE
+  hi DiffText cterm=NONE
+endfunction
+augroup __nord__
   autocmd!
-  autocmd VimEnter,WinEnter * call matchadd("FullWidthSpace", "　")
+  autocmd ColorScheme nord call s:customize_nord()
 augroup END
-"行末スペースの可視化
-highlight EndSpace
-  \ ctermbg=199
-  \ guibg=Cyan
-augroup EndSpace
+"#--------------------------------------------------#
+"# w0ng/vim-hybrid                                  #
+"#--------------------------------------------------#
+function! s:pre_setup_hybrid() abort
+  set background=dark
+  let g:hybrid_custom_term_colors = 1
+  let g:hybrid_reduced_contrast = 1
+endfunction
+augroup __hybrid__
   autocmd!
-  autocmd VimEnter,WinEnter * match EndSpace /\s\+$/
+  autocmd colorschemepre hybrid call s:pre_setup_hybrid()
 augroup END
+"#--------------------------------------------------#
+"# common highlight settings                        #
+"#--------------------------------------------------#
+" customize highlights
+function! s:setup_hi_groups() abort
+  hi FullWidthSpace ctermbg=11
+  hi TrailSpace ctermbg=11
+endfunction
+function! s:setup_matches() abort
+  call matchadd("FullWidthSpace", "　")
+  call matchadd("TrailSpace", '\s\+$')
+endfunction
+augroup __custom_hi__
+  autocmd!
+  autocmd Colorscheme * call s:setup_hi_groups()
+  autocmd VimEnter,WinEnter * call s:setup_matches()
+augroup end
+" set default colorscheme
+colorscheme hybrid
 
-"ヤンクをクリップボードに保存
-set clipboard+=unnamed
 
+"##=============##
+"##   plugins   ##
+"##=============##
 "#--------------------------------------------------#
 "# airblade/vim-gitgutter                           #
 "#--------------------------------------------------#
@@ -221,7 +220,6 @@ function! s:vimenter_fern() abort
     Fern . -drawer -keep -toggle
   endif
 endfunction
-
 function! s:filetype_fern() abort
   " hide number
   setlocal nonumber
@@ -234,13 +232,18 @@ function! s:filetype_fern() abort
   nmap <buffer><nowait> N <Plug>(fern-action-new-path)
   nmap <buffer><nowait> <CR> <Plug>(fern-action-cd)<Plug>(fern-action-enter)
 endfunction
-
 augroup __fern__
   autocmd!
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * ++nested call s:vimenter_fern()
   autocmd FileType fern call s:filetype_fern()
 augroup END
+
+"#--------------------------------------------------#
+"# ojroques/vim-oscyank                             #
+"#--------------------------------------------------#
+" yank to clipboard using OSC52
+vnoremap <leader>y :OSCYank<CR>
 
 "#--------------------------------------------------#
 "# vim-airline/vim-airline                          #
@@ -263,6 +266,7 @@ let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#tab_min_count = 2
 " show tab index (not split count)
 let g:airline#extensions#tabline#tab_nr_type = 1
+
 "#--------------------------------------------------#
 "# scrooloose/nerdtree                              #
 "#--------------------------------------------------#
