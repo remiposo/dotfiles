@@ -1,7 +1,7 @@
 export EDITOR=vim
 export PATH="$HOME/local/bin:$PATH"
 
-# Load alias files
+# load files
 script_home="$(dirname "$(realpath "$BASH_SOURCE")")"
 dotfiles_root="$(cd "${script_home}/.." && pwd)"
 if [ -d "${dotfiles_root}" ];then
@@ -11,7 +11,7 @@ if [ -d "${dotfiles_root}" ];then
   done
 fi
 
-# Setup rbenv
+# setup rbenv
 if [ -d $HOME/.rbenv ];then
   export RBENV_ROOT=$HOME/.rbenv
 fi
@@ -20,7 +20,7 @@ if [ -d "${RBENV_ROOT}" ];then
   eval "$(rbenv init -)"
 fi
 
-# Setup nodenv
+# setup nodenv
 if [ -d $HOME/.nodenv ];then
   export NODENV_ROOT=$HOME/.nodenv
 fi
@@ -29,23 +29,23 @@ if [ -d "${NODENV_ROOT}" ];then
   eval "$(nodenv init -)"
 fi
 
-# Setup jdk
+# setup jdk
 if [ -d $HOME/.jdk ];then
   export JDK_ROOT=$HOME/.jdk
   export PATH="$JDK_ROOT/bin:$PATH"
 fi
 
-# Setup starship
+# setup starship
 if type starship > /dev/null 2>&1; then
   eval "$(starship init bash)"
 fi
 
-# Setup direnv
+# setup direnv
 if type direnv > /dev/null 2>&1; then
   eval "$(direnv hook bash)"
 fi
 
-# Setup goenv
+# setup goenv
 if [ -d $HOME/.goenv ];then
   export GOENV_ROOT="$HOME/.goenv"
   export PATH="$GOENV_ROOT/bin:$PATH"
@@ -54,7 +54,7 @@ if [ -d $HOME/.goenv ];then
   export PATH="$PATH:$GOPATH/bin"
 fi
 
-# Setup volta
+# setup volta
 if [ -d $HOME/.volta ];then
   export VOLTA_HOME="$HOME/.volta"
   export PATH="$VOLTA_HOME/bin:$PATH"
