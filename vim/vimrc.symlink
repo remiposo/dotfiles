@@ -231,6 +231,7 @@ function! s:filetype_fern() abort
   nmap <buffer><nowait> r <Plug>(fern-action-reload)
   nmap <buffer><nowait> N <Plug>(fern-action-new-path)
   nmap <buffer><nowait> <CR> <Plug>(fern-action-cd)<Plug>(fern-action-enter)
+  nmap <buffer><nowait> z <Plug>(fern-action-zoom:full)
 endfunction
 augroup __fern__
   autocmd!
