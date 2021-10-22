@@ -25,7 +25,7 @@ Plug 'chr4/nginx.vim'
 Plug 'posva/vim-vue'
 " others
 Plug 'airblade/vim-gitgutter'
-Plug 'edkolev/tmuxline.vim'
+" Plug 'edkolev/tmuxline.vim'
 Plug 'fatih/vim-go'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
@@ -192,7 +192,7 @@ nnoremap <leader>g :GitGutterSignsToggle<CR>
 "# edkolev/tmuxline.vim                             #
 "#--------------------------------------------------#
 " set tmux preset
-let g:tmuxline_preset = 'powerline'
+" let g:tmuxline_preset = ''
 
 "#--------------------------------------------------#
 "# lambdalisue/glyph-palette.vim                    #
