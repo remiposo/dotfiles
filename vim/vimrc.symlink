@@ -26,7 +26,9 @@ Plug 'posva/vim-vue'
 " others
 Plug 'airblade/vim-gitgutter'
 " Plug 'edkolev/tmuxline.vim'
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
 Plug 'lambdalisue/fern.vim'
@@ -34,7 +36,11 @@ Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/nerdfont.vim'
+Plug 'mattn/vim-lsp-settings'
 Plug 'ojroques/vim-oscyank'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
@@ -96,6 +102,8 @@ set autoindent
 set updatetime=300
 " always show signcolumn
 set signcolumn=yes
+" enable to delete any str in insert
+set backspace=indent,eol,start
 
 "#--------------------------------------------------#
 "# common key maps                                  #
@@ -106,8 +114,12 @@ nnoremap gj j
 nnoremap k gk
 nnoremap gk k
 nnoremap q <Nop>
-noremap <C-a> ^
-noremap <C-e> $
+nnoremap <C-a> ^
+nnoremap <C-e> $
+" quickfix
+nnoremap <leader>n :cnext<CR>
+nnoremap <leader>p :cprevious<CR>
+nnoremap <leader>c :cclose<CR>
 "insert
 inoremap <C-b> <Left>
 inoremap <C-j> <Down>
@@ -195,6 +207,23 @@ nnoremap <leader>g :GitGutterSignsToggle<CR>
 " let g:tmuxline_preset = ''
 
 "#--------------------------------------------------#
+"# hrsh7th/vim-vsnip                                #
+"#--------------------------------------------------#
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+
+"#--------------------------------------------------#
 "# lambdalisue/glyph-palette.vim                    #
 "#--------------------------------------------------#
 augroup __glyph-palette__
@@ -247,6 +276,36 @@ augroup END
 vnoremap <leader>y :OSCYank<CR>
 
 "#--------------------------------------------------#
+"# prabirshrestha/vim-lsp                           #
+"#--------------------------------------------------#
+" show error msg for current line in popup
+let g:lsp_diagnostics_float_cursor = 1
+" dont show code action signs
+let g:lsp_document_code_action_signs_enabled = 0
+
+function! s:vim_lsp_load_general_settings() abort
+  " use lsp for monifunc
+  setlocal omnifunc=lsp#complete
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gh <plug>(lsp-hover)
+  nmap <buffer> gr <plug>(lsp-rename)
+  nmap <buffer> gn <plug>(lsp-next-diagnostic)
+  nmap <buffer> gp <plug>(lsp-previous-diagnostic)
+endfunction
+
+" import and format before save in go
+function! s:vim_lsp_modify_go() abort
+  LspCodeActionSync source.organizeImports
+  LspDocumentFormatSync
+endfunction
+
+augroup __vim_lsp__
+  autocmd!
+  autocmd User lsp_buffer_enabled call s:vim_lsp_load_general_settings()
+  autocmd BufWritePre *.go call s:vim_lsp_modify_go()
+augroup END
+
+"#--------------------------------------------------#
 "# vim-airline/vim-airline                          #
 "#--------------------------------------------------#
 " use powerline fonts
@@ -295,9 +354,6 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 "#--------------------------------------------------#
 "# fatih/vim-go                                     #
 "#--------------------------------------------------#
-let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-let g:go_list_type = "quickfix"
-nnoremap <leader>n :cnext<CR>
-nnoremap <leader>p :cprevious<CR>
-nnoremap <leader>c :cclose<CR>
+"let g:go_fmt_command = "goimports"
+"let g:go_metalinter_autosave = 1
+"let g:go_list_type = "quickfix"
