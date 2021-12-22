@@ -284,7 +284,7 @@ let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_document_code_action_signs_enabled = 0
 
 function! s:vim_lsp_load_general_settings() abort
-  " use lsp for monifunc
+  " use lsp for omnifunc
   setlocal omnifunc=lsp#complete
   nmap <buffer> gd <plug>(lsp-definition)
   nmap <buffer> gh <plug>(lsp-hover)
@@ -299,10 +299,16 @@ function! s:vim_lsp_modify_go() abort
   LspDocumentFormatSync
 endfunction
 
+" format before save in rust
+function! s:vim_lsp_modify_rust() abort
+  LspDocumentFormatSync
+endfunction
+
 augroup __vim_lsp__
   autocmd!
   autocmd User lsp_buffer_enabled call s:vim_lsp_load_general_settings()
   autocmd BufWritePre *.go call s:vim_lsp_modify_go()
+  autocmd BufWritePre *.rs call s:vim_lsp_modify_rust()
 augroup END
 
 "#--------------------------------------------------#
