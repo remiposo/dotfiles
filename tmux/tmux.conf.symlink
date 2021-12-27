@@ -1,6 +1,5 @@
 # set term
 set -g default-terminal "xterm-256color"
-set -ga terminal-overrides "$TERM:Tc"
 
 # set prefix key
 set -g prefix C-q
