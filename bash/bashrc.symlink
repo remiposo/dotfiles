@@ -66,4 +66,12 @@ if [ -d $HOME/.cargo ];then
 fi
 
 # setup fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [ -f ~/.fzf.bash ]; then
+  source ~/.fzf.bash
+  export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+fi
+
+# setup bat
+if type bat > /dev/null 2>&1; then
+  alias cat='bat'
+fi
