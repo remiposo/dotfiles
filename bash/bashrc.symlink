@@ -64,3 +64,6 @@ fi
 if [ -d $HOME/.cargo ];then
   . "$HOME/.cargo/env"
 fi
+
+# setup fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
