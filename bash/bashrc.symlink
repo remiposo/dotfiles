@@ -66,9 +66,15 @@ if [ -d $HOME/.cargo ];then
 fi
 
 # setup fzf
-if [ -f ~/.fzf.bash ]; then
-  source ~/.fzf.bash
+if type fzf > /dev/null 2>&1; then
   export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
+  if [ -d /usr/share/fzf ]; then
+    source /usr/share/fzf/key-bindings.bash
+    source /usr/share/fzf/completion.bash
+  fi
+  if [ -f ~/.fzf.bash ]; then
+    source ~/.fzf.bash
+  fi
 fi
 
 # setup bat
