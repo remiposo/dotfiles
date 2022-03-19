@@ -241,7 +241,6 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 nnoremap <silent> <C-p> :GFiles<CR>
 nnoremap <silent> <C-g> :RG<CR>
 
-
 "#--------------------------------------------------#
 "# lambdalisue/glyph-palette.vim                    #
 "#--------------------------------------------------#
