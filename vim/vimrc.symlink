@@ -2,6 +2,8 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+let s:dotfile_root=fnamemodify(resolve(expand("<sfile>:p")), ":h")
+
 "#--------------------------------------------------#
 "# junegunn/vim-plug                                #
 "#--------------------------------------------------#
@@ -288,6 +290,17 @@ augroup __fern__
 augroup END
 
 "#--------------------------------------------------#
+"# mattn/vim-lsp-settings                           #
+"#--------------------------------------------------#
+let g:lsp_settings = {
+\   'efm-langserver': {
+\     'args': ['-c', s:dotfile_root.'/efm-langserver/config.yaml'],
+\     'disabled': v:false,
+\     'blocklist': ['', 'fern']
+\   }
+\ }
+
+"#--------------------------------------------------#
 "# ojroques/vim-oscyank                             #
 "#--------------------------------------------------#
 " yank to clipboard using OSC52
@@ -300,6 +313,8 @@ vnoremap <leader>y :OSCYank<CR>
 let g:lsp_diagnostics_float_cursor = 1
 " dont show code action signs
 let g:lsp_document_code_action_signs_enabled = 0
+" disable lsp log
+let g:lsp_log_file = ''
 
 function! s:vim_lsp_load_general_settings() abort
   " use lsp for omnifunc
@@ -322,11 +337,17 @@ function! s:vim_lsp_modify_rust() abort
   LspDocumentFormatSync
 endfunction
 
+" format before save in typescript
+function! s:vim_lsp_modify_typescript() abort
+  LspDocumentFormatSync --server=efm-langserver
+endfunction
+
 augroup __vim_lsp__
   autocmd!
   autocmd User lsp_buffer_enabled call s:vim_lsp_load_general_settings()
   autocmd BufWritePre *.go call s:vim_lsp_modify_go()
   autocmd BufWritePre *.rs call s:vim_lsp_modify_rust()
+  autocmd BufWritePre *.ts,*.tsx call s:vim_lsp_modify_typescript()
 augroup END
 
 "#--------------------------------------------------#
