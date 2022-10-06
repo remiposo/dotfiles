@@ -73,8 +73,7 @@ set wildmenu
 "現在の行を強調表示
 set cursorline
 "ビープ音の無効化
-set visualbell t_vb=
-set noerrorbells
+set belloff=all
 "対応する括弧を表示
 set showmatch
 "スワップファイルの無効化
