@@ -31,7 +31,6 @@ Plug 'posva/vim-vue'
 " others
 Plug 'airblade/vim-gitgutter'
 " Plug 'edkolev/tmuxline.vim'
-" Plug 'fatih/vim-go'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'junegunn/fzf'
@@ -374,33 +373,3 @@ let g:airline#extensions#tabline#tab_min_count = 2
 " show tab index (not split count)
 let g:airline#extensions#tabline#tab_nr_type = 1
 
-"#--------------------------------------------------#
-"# scrooloose/nerdtree                              #
-"#--------------------------------------------------#
-"augroup nerdtree
-"  autocmd!
-"augroup END
-"" toggle nerdtree with <C-n>
-"noremap <C-n> :NERDTreeToggle<CR>
-"" show hidden files
-"let NERDTreeShowHidden = 1
-"" change default key maps
-"autocmd nerdtree FileType nerdtree nmap <buffer><nowait> s :call<Space>nerdtree#ui_glue#invokeKeyMap('i')<CR>
-"autocmd nerdtree FileType nerdtree nmap <buffer><nowait> v :call<Space>nerdtree#ui_glue#invokeKeyMap('s')<CR>
-"" open nerdtree when starting vim without any args or stdin
-"function! s:init_nerdtree() abort
-"  if argc() == 0 && !exists('s:std_in')
-"    NERDTree
-"    wincmd p
-"    close
-"  endif
-"endfunction
-"autocmd nerdtree StdinReadPre * let s:std_in=1
-"autocmd nerdtree VimEnter * call s:init_nerdtree()
-
-"#--------------------------------------------------#
-"# fatih/vim-go                                     #
-"#--------------------------------------------------#
-"let g:go_fmt_command = "goimports"
-"let g:go_metalinter_autosave = 1
-"let g:go_list_type = "quickfix"
