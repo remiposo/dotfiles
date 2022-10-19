@@ -180,6 +180,7 @@ augroup END
 function! s:setup_hi_groups() abort
   hi FullWidthSpace ctermbg=11
   hi TrailSpace ctermbg=11
+  hi clear SignColumn
 endfunction
 function! s:setup_matches() abort
   call matchadd("FullWidthSpace", "　")
