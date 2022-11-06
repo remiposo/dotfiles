@@ -43,7 +43,6 @@ Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'mattn/vim-lsp-settings'
-Plug 'ojroques/vim-oscyank'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -142,6 +141,9 @@ nnoremap sl <C-w>l
 "command
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
+
+" transfer yanked content to clipper runnning on localhost:8377
+nnoremap <leader>y :call system('nc -c localhost 8377', @0)<CR>
 
 
 "##=============##
@@ -302,11 +304,6 @@ let g:lsp_settings = {
 \   }
 \ }
 
-"#--------------------------------------------------#
-"# ojroques/vim-oscyank                             #
-"#--------------------------------------------------#
-" yank to clipboard using OSC52
-vnoremap <leader>y :OSCYank<CR>
 
 "#--------------------------------------------------#
 "# prabirshrestha/vim-lsp                           #

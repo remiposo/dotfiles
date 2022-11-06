@@ -81,3 +81,8 @@ fi
 if type bat > /dev/null 2>&1; then
   alias cat='bat'
 fi
+
+# transfer stdin to clipper running on localhost:8377
+if type nc > /dev/null 2>&1; then
+  alias clip='nc -c localhost 8377'
+fi
