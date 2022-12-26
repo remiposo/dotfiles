@@ -54,13 +54,42 @@ vim.keymap.set('c', '<C-n>', '<Down>')
 -- # plugins                                      #
 -- #----------------------------------------------#
 require('packer').startup(function(use)
+  use "EdenEast/nightfox.nvim"
+  use 'folke/tokyonight.nvim'
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+  }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+  }
   use 'wbthomason/packer.nvim'
-  use 'EdenEast/nightfox.nvim'
 end)
 
 require('nightfox').setup({
   options = {
-    transparent = true,
+    dim_inactive = true,
   },
 })
 vim.cmd('colorscheme nordfox')
+
+--require('tokyonight').setup({
+--  style = "moon",
+--  dim_inactive = true,
+--  lualine_bold = true,
+--})
+--vim.cmd('colorscheme tokyonight')
+
+require('lualine').setup()
+
+require('nvim-treesitter.configs').setup({
+  ensure_installed = {
+    'go',
+    'lua',
+    'ruby',
+  },
+  highlight = {
+    enable = true,
+  },
+})
