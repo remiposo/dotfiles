@@ -121,7 +121,7 @@ local on_attach_gopls = function(client, bufnr)
     buffer = bufnr,
     callback = function()
       vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' }}, apply = true})
-      vim.lsp.buf.formatting_seq_sync()
+      vim.lsp.buf.format({ async = false })
     end
   })
 end
