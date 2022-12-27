@@ -73,14 +73,14 @@ require('nightfox').setup({
     dim_inactive = true,
   },
 })
-vim.cmd('colorscheme nordfox')
 
 --require('tokyonight').setup({
---  style = "moon",
+--  style = 'moon',
 --  dim_inactive = true,
 --  lualine_bold = true,
 --})
---vim.cmd('colorscheme tokyonight')
+
+vim.cmd('colorscheme nordfox')
 
 require('lualine').setup()
 
