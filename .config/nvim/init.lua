@@ -25,35 +25,38 @@ vim.opt.termguicolors = true
 -- #----------------------------------------------#
 -- # common keymaps                               #
 -- #----------------------------------------------#
-vim.keymap.set('n', 'j', 'gj')
-vim.keymap.set('n', 'gj', 'j')
-vim.keymap.set('n', 'k', 'gk')
-vim.keymap.set('n', 'gk', 'k')
-vim.keymap.set('n', 'q', '<Nop>')
-vim.keymap.set('n', '<C-a>', '^')
-vim.keymap.set('n', '<C-e>', '$')
-vim.keymap.set('n', '<ESC><ESC>', ':nohlsearch<CR>')
-vim.keymap.set('n', '<Space>', '<C-w>w')
-vim.keymap.set('n', 's', '<Nop>')
-vim.keymap.set('n', 'sh', '<C-w>h')
-vim.keymap.set('n', 'sj', '<C-w>j')
-vim.keymap.set('n', 'sk', '<C-w>k')
-vim.keymap.set('n', 'sl', '<C-w>l')
+local keymap_opts = { noremap=true, silent=true }
+vim.keymap.set('n', 'j', 'gj', keymap_opts)
+vim.keymap.set('n', 'gj', 'j', keymap_opts)
+vim.keymap.set('n', 'k', 'gk', keymap_opts)
+vim.keymap.set('n', 'gk', 'k', keymap_opts)
+vim.keymap.set('n', 'q', '<Nop>', keymap_opts)
+vim.keymap.set('n', '<C-a>', '^', keymap_opts)
+vim.keymap.set('n', '<C-e>', '$', keymap_opts)
+vim.keymap.set('n', '<ESC><ESC>', ':nohlsearch<CR>', keymap_opts)
+vim.keymap.set('n', '<Space>', '<C-w>w', keymap_opts)
+vim.keymap.set('n', 's', '<Nop>', keymap_opts)
+vim.keymap.set('n', 'sh', '<C-w>h', keymap_opts)
+vim.keymap.set('n', 'sj', '<C-w>j', keymap_opts)
+vim.keymap.set('n', 'sk', '<C-w>k', keymap_opts)
+vim.keymap.set('n', 'sl', '<C-w>l', keymap_opts)
 -- transfer yanked to clipper runnning on localhost:8377
-vim.keymap.set('n', '<leader>y', ':call system("nc -c localhost 8377", @0)<CR>')
-vim.keymap.set('i', '<C-h>', '<Left>')
-vim.keymap.set('i', '<C-j>', '<Down>')
-vim.keymap.set('i', '<C-k>', '<Up>')
-vim.keymap.set('i', '<C-l>', '<Right>')
-vim.keymap.set('c', '<C-p>', '<Up>')
-vim.keymap.set('c', '<C-n>', '<Down>')
+vim.keymap.set('n', '<leader>y', ':call system("nc -c localhost 8377", @0)<CR>', keymap_opts)
+vim.keymap.set('i', '<C-h>', '<Left>', keymap_opts)
+vim.keymap.set('i', '<C-j>', '<Down>', keymap_opts)
+vim.keymap.set('i', '<C-k>', '<Up>', keymap_opts)
+vim.keymap.set('i', '<C-l>', '<Right>', keymap_opts)
+vim.keymap.set('c', '<C-p>', '<Up>', keymap_opts)
+vim.keymap.set('c', '<C-n>', '<Down>', keymap_opts)
+vim.keymap.set('n', 'gp', vim.diagnostic.goto_prev, keymap_opts)
+vim.keymap.set('n', 'gn', vim.diagnostic.goto_next, keymap_opts)
+
 
 -- #----------------------------------------------#
 -- # plugins                                      #
 -- #----------------------------------------------#
 require('packer').startup(function(use)
-  use "EdenEast/nightfox.nvim"
-  use 'folke/tokyonight.nvim'
+  use { 'catppuccin/nvim', as = 'catppuccin' }
   use 'neovim/nvim-lspconfig'
   use {
     'nvim-lualine/lualine.nvim',
@@ -68,21 +71,17 @@ require('packer').startup(function(use)
   use 'williamboman/mason-lspconfig.nvim'
 end)
 
-require('nightfox').setup({
-  options = {
-    dim_inactive = true,
-  },
+require('catppuccin').setup({
+  flavour = 'frappe',
 })
 
---require('tokyonight').setup({
---  style = 'moon',
---  dim_inactive = true,
---  lualine_bold = true,
---})
+vim.cmd('colorscheme catppuccin')
 
-vim.cmd('colorscheme nordfox')
-
-require('lualine').setup()
+require('lualine').setup({
+  options = {
+    theme = 'catppuccin',
+  },
+})
 
 require('nvim-treesitter.configs').setup({
   ensure_installed = {
@@ -95,11 +94,7 @@ require('nvim-treesitter.configs').setup({
 })
 
 require('mason').setup()
-require("mason-lspconfig").setup()
-
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', 'gp', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', 'gn', vim.diagnostic.goto_next, opts)
+require('mason-lspconfig').setup()
 
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -120,8 +115,8 @@ local on_attach_gopls = function(client, bufnr)
     group = vim.api.nvim_create_augroup('FormatGopls', { clear = true }),
     buffer = bufnr,
     callback = function()
-      vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' }}, apply = true})
       vim.lsp.buf.format({ async = false })
+      vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' }}, apply = true})
     end
   })
 end

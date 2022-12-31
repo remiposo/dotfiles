@@ -1,0 +1,11 @@
+format = """
+[┌─ ](bold bright-white)$all
+[│](bold bright-white)
+[└─ ](bold bright-white)
+"""
+
+[character]
+disabled = true
+
+[line_break]
+disabled = true
