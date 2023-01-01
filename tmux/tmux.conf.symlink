@@ -16,29 +16,6 @@ set -g mouse on
 # enable copy-mode-vi
 setw -g mode-keys vi
 
-# set status position
-set -g status-position top
-
-# status settings from tmuxline.vim
-set -g status-justify "centre"
-set -g status "on"
-set -g status-left-style "none"
-set -g message-command-style "fg=colour15,bg=colour0"
-set -g status-right-style "none"
-set -g pane-active-border-style "fg=colour65"
-set -g status-style "none,bg=colour8"
-set -g message-style "fg=colour15,bg=colour0"
-set -g pane-border-style "fg=colour0"
-set -g status-right-length "100"
-set -g status-left-length "100"
-setw -g window-status-activity-style "none,fg=colour65,bg=colour8"
-setw -g window-status-separator ""
-setw -g window-status-style "none,fg=colour15,bg=colour8"
-set -g status-left "#[fg=colour193,bg=colour65] #S #[fg=colour65,bg=colour0,nobold,nounderscore,noitalics]#[fg=colour15,bg=colour0] #F #[fg=colour0,bg=colour8,nobold,nounderscore,noitalics]#[fg=colour15,bg=colour8] #W #[fg=colour8,bg=colour8,nobold,nounderscore,noitalics]"
-set -g status-right "#[fg=colour8,bg=colour8,nobold,nounderscore,noitalics]#[fg=colour15,bg=colour8] %a #[fg=colour0,bg=colour8,nobold,nounderscore,noitalics]#[fg=colour15,bg=colour0] %b %d  %R #[fg=colour65,bg=colour0,nobold,nounderscore,noitalics]#[fg=colour193,bg=colour65] #H "
-setw -g window-status-format "#[fg=colour8,bg=colour8,nobold,nounderscore,noitalics]#[default] #I  #W #[fg=colour8,bg=colour8,nobold,nounderscore,noitalics]"
-setw -g window-status-current-format "#[fg=colour8,bg=colour0,nobold,nounderscore,noitalics]#[fg=colour15,bg=colour0] #I  #W #[fg=colour0,bg=colour8,nobold,nounderscore,noitalics]"
-
 # unbind change layout with Space
 unbind Space
 
@@ -46,9 +23,9 @@ unbind Space
 bind m command-prompt "rename-session '%%'"
 
 # select pane with hjkl
-bind k select-pane -U
-bind j select-pane -D
 bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
 bind l select-pane -R
 
 # resize pane with HJKL
@@ -67,3 +44,11 @@ bind x kill-pane
 
 # bind mouseDragEnd to copy-pipe without cancel
 bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe
+
+# List of plugins
+set -g @plugin 'catppuccin/tmux'
+set -g @catppuccin_flavour 'frappe'
+set -g @plugin 'tmux-plugins/tpm'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
