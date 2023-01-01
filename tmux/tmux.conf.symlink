@@ -16,6 +16,9 @@ set -g mouse on
 # enable copy-mode-vi
 setw -g mode-keys vi
 
+# set status line on top
+set -g status-position top
+
 # unbind change layout with Space
 unbind Space
 
