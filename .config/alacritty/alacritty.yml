@@ -103,7 +103,7 @@ env:
   # the default theme variant.
   #decorations_theme_variant: None
 window:
-  startup_mode: SimpleFullscreen
+  startup_mode: Windowed
 
 #scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -186,8 +186,8 @@ window:
   #builtin_box_drawing: true
 font:
   normal:
-    family: Hack NF
-  size: 20.0
+    family: Hack Nerd Font
+  size: 14.0
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false

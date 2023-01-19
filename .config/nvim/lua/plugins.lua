@@ -12,28 +12,6 @@ require('packer').startup(function(use)
           navic = {
             enabled = true,
           },
-          noice = true,
-        },
-      })
-    end,
-  }
-  use {
-    'folke/noice.nvim',
-    requires = {
-      'MunifTanjim/nui.nvim',
-      'rcarriga/nvim-notify',
-    },
-    config = function()
-      require('noice').setup({
-        lsp = {
-          override = {
-            ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-            ['vim.lsp.util.stylize_markdown'] = true,
-            ['cmp.entry.get_documentation'] = true,
-          },
-        },
-        presets = {
-          lsp_doc_border = true,
         },
       })
     end,
@@ -52,10 +30,10 @@ require('packer').startup(function(use)
       cmp.setup({
         mapping = cmp.mapping.preset.insert(),
         sources = cmp.config.sources({
+          { name = 'nvim_lsp_signature_help' },
           { name = 'nvim_lsp' },
           { name = 'buffer' },
           { name = 'path' },
-          { name = 'nvim_lsp_signature_help' },
         }),
         formatting = {
           format = lspkind.cmp_format({
@@ -114,11 +92,23 @@ require('packer').startup(function(use)
       local on_attach_gopls = function(client, bufnr)
         on_attach(client, bufnr)
         vim.api.nvim_create_autocmd('BufWritePre', {
-          group = vim.api.nvim_create_augroup('FormatGopls', { clear = true }),
           buffer = bufnr,
           callback = function()
+            -- auto import using lsp's codeAction
+            local params = vim.lsp.util.make_range_params(nil, vim.lsp.util._get_offset_encoding())
+            params.context = { only = { 'source.organizeImports' }}
+            local result = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params)
+            for _, res in pairs(result or {}) do
+              for _, r in pairs(res.result or {}) do
+                if r.edit then
+                  vim.lsp.util.apply_workspace_edit(r.edit, vim.lsp.util._get_offset_encoding())
+                else
+                  vim.lsp.buf.execute_command(r.command)
+                end
+              end
+            end
+            -- auto format
             vim.lsp.buf.format({ async = false })
-            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' }}, apply = true })
           end
         })
       end
