@@ -28,12 +28,20 @@ require('packer').startup(function(use)
       local cmp = require('cmp')
       local lspkind = require('lspkind')
       cmp.setup({
-        mapping = cmp.mapping.preset.insert(),
+        snippet = {
+          expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        }),
         sources = cmp.config.sources({
-          { name = 'nvim_lsp_signature_help' },
           { name = 'nvim_lsp' },
+          { name = 'nvim_lsp_signature_help' },
           { name = 'buffer' },
           { name = 'path' },
+          { name = 'luasnip' },
         }),
         formatting = {
           format = lspkind.cmp_format({
@@ -68,6 +76,10 @@ require('packer').startup(function(use)
         }),
       })
     end,
+  }
+  use {
+    'L3MON4D3/LuaSnip',
+    tag = 'v<CurrentMajor>.*',
   }
   use {
     'neovim/nvim-lspconfig',
@@ -164,7 +176,6 @@ require('packer').startup(function(use)
       vim.keymap.set('n', '<leader>c', tele_builtin.commands, keymap_opts)
       require('telescope').load_extension('file_browser')
       vim.keymap.set('n', '<leader>b', require('telescope').extensions.file_browser.file_browser, keymap_opts)
-      require('telescope').load_extension('noice')
     end,
   }
   use { 'nvim-telescope/telescope-file-browser.nvim' }
@@ -189,6 +200,7 @@ require('packer').startup(function(use)
     end,
   }
   use 'onsails/lspkind.nvim'
+  use 'saadparwaiz1/cmp_luasnip'
   use {
     'SmiteshP/nvim-navic',
     config = function()
@@ -201,4 +213,10 @@ require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup()
+    end
+  }
 end)
