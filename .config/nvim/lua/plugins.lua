@@ -1,5 +1,21 @@
 require('packer').startup(function(use)
   use {
+    'akinsho/bufferline.nvim',
+    tag = 'v3.*',
+    after = 'catppuccin',
+    requires = 'nvim-tree/nvim-web-devicons',
+    config = function ()
+      require("bufferline").setup({
+        highlights = require("catppuccin.groups.integrations.bufferline").get()
+      })
+      local keymap_opts = { noremap = true, silent = true }
+      vim.keymap.set('n', 'qn', ':BufferLineCycleNext<CR>', keymap_opts)
+      vim.keymap.set('n', 'qp', ':BufferLineCyclePrev<CR>', keymap_opts)
+      vim.keymap.set('n', 'qw', ':BufferLinePick<CR>', keymap_opts)
+      vim.keymap.set('n', 'qd', ':BufferLinePickClose<CR>', keymap_opts)
+    end
+  }
+  use {
     'catppuccin/nvim',
     as = 'catppuccin',
     config = function()
@@ -9,6 +25,7 @@ require('packer').startup(function(use)
           enabled = true,
         },
         integrations = {
+          fidget = true,
           navic = {
             enabled = true,
           },
@@ -76,6 +93,16 @@ require('packer').startup(function(use)
         }),
       })
     end,
+  }
+  use {
+    'j-hui/fidget.nvim',
+    config = function ()
+      require('fidget').setup({
+        window = {
+          blend = 0,
+        },
+      })
+    end
   }
   use {
     'L3MON4D3/LuaSnip',
@@ -147,7 +174,7 @@ require('packer').startup(function(use)
   }
   use {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
+    requires = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       local navic = require('nvim-navic')
       require('lualine').setup({
@@ -175,7 +202,7 @@ require('packer').startup(function(use)
       vim.keymap.set('n', '<leader>b', tele_builtin.buffers, keymap_opts)
       vim.keymap.set('n', '<leader>c', tele_builtin.commands, keymap_opts)
       require('telescope').load_extension('file_browser')
-      vim.keymap.set('n', '<leader>b', require('telescope').extensions.file_browser.file_browser, keymap_opts)
+      vim.keymap.set('n', '<leader>n', require('telescope').extensions.file_browser.file_browser, keymap_opts)
     end,
   }
   use { 'nvim-telescope/telescope-file-browser.nvim' }
@@ -184,15 +211,7 @@ require('packer').startup(function(use)
     run = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup({
-        ensure_installed = {
-          'go',
-          'lua',
-          'vim',
-          'markdown',
-          'markdown_inline',
-          'regex',
-          'bash',
-        },
+        ensure_installed = 'all',
         highlight = {
           enable = true,
         },
