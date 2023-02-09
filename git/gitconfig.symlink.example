@@ -1,9 +1,0 @@
-# vi: set ft=gitconfig :
-
-[user]
-	name = AUTHORNAME
-	email = AUTHOREMAIL
-[core]
-	editor = vim
-[init]
-	defaultBranch = main
