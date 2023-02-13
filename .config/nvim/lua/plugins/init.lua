@@ -1,65 +1,4 @@
 return {
-  { 'hrsh7th/cmp-buffer' },
-  { 'hrsh7th/cmp-cmdline' },
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
-  { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-  { 'hrsh7th/cmp-path' },
-  {
-    'hrsh7th/nvim-cmp',
-    config = function()
-      local cmp = require('cmp')
-      local lspkind = require('lspkind')
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
-        }),
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'nvim_lsp_signature_help' },
-          { name = 'buffer' },
-          { name = 'path' },
-          { name = 'luasnip' },
-        }),
-        formatting = {
-          format = lspkind.cmp_format({
-            mode = 'symbol_text',
-            menu = ({
-              buffer = '[Buffer]',
-              nvim_lsp = '[LSP]',
-              path = '[Path]',
-            }),
-          }),
-        },
-      })
-
-      cmp.setup.cmdline({ '/', '?' }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = 'buffer' },
-          { name = 'nvim_lsp_document_symbol' },
-        },
-      })
-
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path' },
-          {
-            name = 'cmdline',
-            option = {
-              ignore_cmds = { 'Man', '!' },
-            },
-          },
-        }),
-      })
-    end,
-  },
   {
     'j-hui/fidget.nvim',
     config = function ()
@@ -70,7 +9,6 @@ return {
       })
     end
   },
-  { 'L3MON4D3/LuaSnip' },
   {
     'neovim/nvim-lspconfig',
     config = function()
@@ -180,8 +118,6 @@ return {
       })
     end,
   },
-  { 'onsails/lspkind.nvim' },
-  { 'saadparwaiz1/cmp_luasnip' },
   {
     'SmiteshP/nvim-navic',
     config = function()
@@ -191,7 +127,6 @@ return {
       })
     end
   },
-  { 'wbthomason/packer.nvim' },
   { 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
   {
