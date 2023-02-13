@@ -1,45 +1,11 @@
-require('packer').startup(function(use)
-  use {
-    'akinsho/bufferline.nvim',
-    tag = 'v3.*',
-    after = 'catppuccin',
-    requires = 'nvim-tree/nvim-web-devicons',
-    config = function ()
-      require("bufferline").setup({
-        highlights = require("catppuccin.groups.integrations.bufferline").get()
-      })
-      local keymap_opts = { noremap = true, silent = true }
-      vim.keymap.set('n', 'qn', ':BufferLineCycleNext<CR>', keymap_opts)
-      vim.keymap.set('n', 'qp', ':BufferLineCyclePrev<CR>', keymap_opts)
-      vim.keymap.set('n', 'qw', ':BufferLinePick<CR>', keymap_opts)
-      vim.keymap.set('n', 'qd', ':BufferLinePickClose<CR>', keymap_opts)
-    end
-  }
-  use {
-    'catppuccin/nvim',
-    as = 'catppuccin',
-    config = function()
-      require('catppuccin').setup({
-        flavour = 'frappe',
-        dim_inactive = {
-          enabled = true,
-        },
-        integrations = {
-          fidget = true,
-          navic = {
-            enabled = true,
-          },
-        },
-      })
-    end,
-  }
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-cmdline'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-nvim-lsp-document-symbol'
-  use 'hrsh7th/cmp-nvim-lsp-signature-help'
-  use 'hrsh7th/cmp-path'
-  use {
+return {
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-cmdline' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
+  { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+  { 'hrsh7th/cmp-path' },
+  {
     'hrsh7th/nvim-cmp',
     config = function()
       local cmp = require('cmp')
@@ -93,8 +59,8 @@ require('packer').startup(function(use)
         }),
       })
     end,
-  }
-  use {
+  },
+  {
     'j-hui/fidget.nvim',
     config = function ()
       require('fidget').setup({
@@ -103,12 +69,9 @@ require('packer').startup(function(use)
         },
       })
     end
-  }
-  use {
-    'L3MON4D3/LuaSnip',
-    tag = 'v<CurrentMajor>.*',
-  }
-  use {
+  },
+  { 'L3MON4D3/LuaSnip' },
+  {
     'neovim/nvim-lspconfig',
     config = function()
       require('mason').setup()
@@ -171,10 +134,10 @@ require('packer').startup(function(use)
         capabilities = capabilities,
       })
     end,
-  }
-  use {
+  },
+  {
     'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       local navic = require('nvim-navic')
       require('lualine').setup({
@@ -189,11 +152,11 @@ require('packer').startup(function(use)
         },
       })
     end,
-  }
-  use {
+  },
+  {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.0',
-    requires = { 'nvim-lua/plenary.nvim' },
+    version = '0.1.0',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local tele_builtin = require('telescope.builtin')
       local keymap_opts = { noremap = true, silent = true }
@@ -204,11 +167,10 @@ require('packer').startup(function(use)
       require('telescope').load_extension('file_browser')
       vim.keymap.set('n', '<leader>n', require('telescope').extensions.file_browser.file_browser, keymap_opts)
     end,
-  }
-  use { 'nvim-telescope/telescope-file-browser.nvim' }
-  use {
+  },
+  { 'nvim-telescope/telescope-file-browser.nvim' },
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup({
         ensure_installed = 'all',
@@ -217,10 +179,10 @@ require('packer').startup(function(use)
         },
       })
     end,
-  }
-  use 'onsails/lspkind.nvim'
-  use 'saadparwaiz1/cmp_luasnip'
-  use {
+  },
+  { 'onsails/lspkind.nvim' },
+  { 'saadparwaiz1/cmp_luasnip' },
+  {
     'SmiteshP/nvim-navic',
     config = function()
       require('nvim-navic').setup({
@@ -228,14 +190,14 @@ require('packer').startup(function(use)
         depth_limit = 3,
       })
     end
-  }
-  use 'wbthomason/packer.nvim'
-  use 'williamboman/mason.nvim'
-  use 'williamboman/mason-lspconfig.nvim'
-  use {
+  },
+  { 'wbthomason/packer.nvim' },
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
+  {
     'windwp/nvim-autopairs',
     config = function()
       require('nvim-autopairs').setup()
     end
-  }
-end)
+  },
+}
