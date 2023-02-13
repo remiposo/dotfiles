@@ -1,20 +1,13 @@
 return {
   {
-    'j-hui/fidget.nvim',
-    config = function ()
-      require('fidget').setup({
-        window = {
-          blend = 0,
-        },
-      })
-    end
-  },
-  {
     'neovim/nvim-lspconfig',
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'j-hui/fidget.nvim',
+      'SmiteshP/nvim-navic',
+      'williamboman/mason-lspconfig.nvim',
+    },
     config = function()
-      require('mason').setup()
-      require('mason-lspconfig').setup()
-
       local on_attach = function(client, bufnr)
         if client.server_capabilities.documentSymbolProvider then
           require('nvim-navic').attach(client, bufnr)
@@ -74,65 +67,23 @@ return {
     end,
   },
   {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      local navic = require('nvim-navic')
-      require('lualine').setup({
-        options = {
-          theme = 'catppuccin',
-        },
-        sections = {
-          lualine_c = {
-            { 'filename', path = 1 },
-            { navic.get_location, cond = navic.is_available },
-          },
-        },
-      })
-    end,
+    'j-hui/fidget.nvim',
+    lazy = true,
+    opts = {
+      window = {
+        blend = 0,
+      },
+    },
   },
   {
-    'nvim-telescope/telescope.nvim',
-    version = '0.1.0',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local tele_builtin = require('telescope.builtin')
-      local keymap_opts = { noremap = true, silent = true }
-      vim.keymap.set('n', '<leader>f', tele_builtin.find_files, keymap_opts)
-      vim.keymap.set('n', '<leader>g', tele_builtin.live_grep, keymap_opts)
-      vim.keymap.set('n', '<leader>b', tele_builtin.buffers, keymap_opts)
-      vim.keymap.set('n', '<leader>c', tele_builtin.commands, keymap_opts)
-      require('telescope').load_extension('file_browser')
-      vim.keymap.set('n', '<leader>n', require('telescope').extensions.file_browser.file_browser, keymap_opts)
-    end,
-  },
-  { 'nvim-telescope/telescope-file-browser.nvim' },
-  {
-    'nvim-treesitter/nvim-treesitter',
-    config = function()
-      require('nvim-treesitter.configs').setup({
-        ensure_installed = 'all',
-        highlight = {
-          enable = true,
-        },
-      })
-    end,
+    'williamboman/mason.nvim',
+    lazy = true,
+    config = true,
   },
   {
-    'SmiteshP/nvim-navic',
-    config = function()
-      require('nvim-navic').setup({
-        highlight = true,
-        depth_limit = 3,
-      })
-    end
-  },
-  { 'williamboman/mason.nvim' },
-  { 'williamboman/mason-lspconfig.nvim' },
-  {
-    'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup()
-    end
+    'williamboman/mason-lspconfig.nvim',
+    dependencies = { 'williamboman/mason.nvim' },
+    lazy = true,
+    config = true,
   },
 }
