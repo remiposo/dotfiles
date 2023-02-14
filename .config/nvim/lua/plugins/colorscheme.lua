@@ -8,6 +8,7 @@ return {
       flavour = 'frappe',
       integrations = {
         fidget = true,
+        hop = true,
         navic = {
           enabled = true,
         },
