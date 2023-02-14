@@ -25,22 +25,12 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
-      'SmiteshP/nvim-navic',
     },
-    opts = function ()
-      local navic = require('nvim-navic')
-      return {
-        options = {
-          theme = 'catppuccin',
-        },
-        sections = {
-          lualine_c = {
-            { 'filename', path = 1 },
-            { navic.get_location, cond = navic.is_available },
-          },
-        },
-      }
-    end
+    opts = {
+      options = {
+        theme = 'catppuccin',
+      },
+    },
   },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -59,6 +49,18 @@ return {
     opts = {
       highlight = true,
       depth_limit = 3,
-    }
+    },
+  },
+  {
+    'utilyre/barbecue.nvim',
+    name = 'barbecue',
+    version = '*',
+    dependencies = {
+      'SmiteshP/nvim-navic',
+      'nvim-tree/nvim-web-devicons',
+    },
+    opts = {
+      theme = 'catppuccin',
+    },
   },
 }

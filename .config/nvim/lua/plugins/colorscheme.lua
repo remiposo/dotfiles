@@ -10,7 +10,10 @@ return {
         fidget = true,
         navic = {
           enabled = true,
-        }
+        },
+        barbecue = {
+          dim_dirname = true,
+        },
       },
     })
     vim.cmd([[colorscheme catppuccin]])
