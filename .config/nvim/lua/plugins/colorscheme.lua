@@ -12,6 +12,7 @@ return {
         navic = {
           enabled = true,
         },
+        neotree = true,
         barbecue = {
           dim_dirname = true,
         },
