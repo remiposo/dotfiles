@@ -1,11 +1,5 @@
--- #----------------------------------------------#
--- # common variables                             #
--- #----------------------------------------------#
 vim.g.mapleader = ','
 
--- #----------------------------------------------#
--- # common options                               #
--- #----------------------------------------------#
 vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
@@ -20,9 +14,6 @@ vim.opt.swapfile = false
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
 
--- #----------------------------------------------#
--- # common keymaps                               #
--- #----------------------------------------------#
 local keymap_opts = { noremap = true, silent = true }
 vim.keymap.set('n', 's', '<Nop>', keymap_opts)
 vim.keymap.set('n', 'q', '<Nop>', keymap_opts)

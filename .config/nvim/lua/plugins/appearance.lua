@@ -22,6 +22,10 @@ return {
     end
   },
   {
+    'lukas-reineke/indent-blankline.nvim',
+    config = true,
+  },
+  {
     'lewis6991/gitsigns.nvim',
     config = true,
   },
@@ -46,14 +50,6 @@ return {
         },
       })
     end,
-  },
-  {
-    'SmiteshP/nvim-navic',
-    lazy = true,
-    opts = {
-      highlight = true,
-      depth_limit = 3,
-    },
   },
   {
     'utilyre/barbecue.nvim',
