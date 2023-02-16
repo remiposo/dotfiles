@@ -13,6 +13,7 @@ vim.opt.smartindent = true
 vim.opt.swapfile = false
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
+vim.opt.clipboard:append('unnamedplus')
 
 local keymap_opts = { noremap = true, silent = true }
 vim.keymap.set('n', 's', '<Nop>', keymap_opts)
@@ -38,7 +39,7 @@ vim.keymap.set('c', '<C-p>', '<Up>', keymap_opts)
 vim.keymap.set('n', 'gn', vim.diagnostic.goto_next, keymap_opts)
 vim.keymap.set('n', 'gp', vim.diagnostic.goto_prev, keymap_opts)
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git',
