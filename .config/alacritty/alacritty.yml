@@ -530,6 +530,8 @@ colors:
 #  program: /bin/bash
 #  args:
 #    - --login
+shell:
+  program: /usr/bin/fish
 
 # Startup directory
 #
