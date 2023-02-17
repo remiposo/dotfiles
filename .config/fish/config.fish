@@ -7,5 +7,13 @@ if status is-interactive
     alias lt='ls --tree'
   end
 
+  if command -sq bat
+    alias cat='bat'
+  end
+
+  if command -sq pokemon-colorscripts
+    pokemon-colorscripts -r --no-title
+  end
+
   starship init fish | source
 end
