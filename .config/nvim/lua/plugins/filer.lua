@@ -14,6 +14,13 @@ return {
       vim.keymap.set('n', '<C-n>', function ()
         require('neo-tree.command').execute({ position = 'float', toggle = true, reveal = true })
       end, keymap_opts)
-    end
+    end,
+    opts = {
+      filesystem = {
+        filtered_items = {
+          visible = true,
+        },
+      },
+    },
   },
 }
