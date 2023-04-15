@@ -1,15 +1,27 @@
 set fish_greeting
 
+if status is-login
+  if test -e '/opt/homebrew/bin/brew'
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  end
+end
+
 if status is-interactive
+  if command -sq git
+    abbr -a gst git status
+  end
+
   if command -sq lsd
-    alias ls='lsd'
-    alias ll='ls -al'
-    alias lt='ls --tree'
+    abbr -a ls lsd
+    abbr -a ll lsd -al
+    abbr -a lt lsd --tree
   end
 
   if command -sq bat
-    alias cat='bat'
+    abbr cat bat
   end
 
-  starship init fish | source
+  if command -sq starship
+    starship init fish | source
+  end
 end
