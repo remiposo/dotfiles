@@ -17,7 +17,8 @@ return {
       vim.keymap.set('n', '<leader>f', builtin('find_files', {
         find_command = { 'fd', '-HL', '-tf', '-tl', '-E', '.git/' },
       }), keymap_opts)
-      vim.keymap.set('n', '<leader>g', builtin('live_grep'), keymap_opts)
+      vim.keymap.set('n', '<leader>r', builtin('live_grep'), keymap_opts)
+      vim.keymap.set('n', '<leader>g', builtin('git_status'), keymap_opts)
       vim.keymap.set('n', '<leader>b', builtin('buffers'), keymap_opts)
       vim.keymap.set('n', '<leader>c', builtin('commands'), keymap_opts)
     end,

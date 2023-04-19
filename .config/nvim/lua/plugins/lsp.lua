@@ -15,6 +15,7 @@ return {
         local bufopts = { noremap = true, silent = true, buffer = bufnr }
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
         vim.keymap.set('n', 'gh', vim.lsp.buf.hover, bufopts)
+        vim.keymap.set('n', 'gf', vim.lsp.buf.references, bufopts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
       end
 
@@ -86,4 +87,7 @@ return {
     lazy = true,
     config = true,
   },
+  {
+    'github/copilot.vim',
+  }
 }

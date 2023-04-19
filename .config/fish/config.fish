@@ -4,6 +4,11 @@ if status is-login
   if test -e '/opt/homebrew/bin/brew'
     eval "$(/opt/homebrew/bin/brew shellenv)"
   end
+
+  if command -sq volta
+    set -x VOLTA_HOME $HOME/.volta
+    set -x PATH $VOLTA_HOME/bin $PATH
+  end
 end
 
 if status is-interactive
