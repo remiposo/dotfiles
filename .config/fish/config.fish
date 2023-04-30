@@ -17,6 +17,11 @@ if status is-login
       '--color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284'
     set FZF_CTRL_T_OPTS "--preview 'bat -n --color=always {}'"
   end
+
+  if command -sq go
+    set -x GOPATH $HOME/go
+    set -x PATH $GOPATH/bin $PATH
+  end
 end
 
 if status is-interactive
