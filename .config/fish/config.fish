@@ -22,6 +22,12 @@ if status is-login
     set -x GOPATH $HOME/go
     set -x PATH $GOPATH/bin $PATH
   end
+
+  if command -sq pyenv
+    set -x PYENV_ROOT $HOME/.pyenv
+    set -x PATH $PYENV_ROOT/bin $PATH
+    pyenv init - | source
+  end
 end
 
 if status is-interactive
