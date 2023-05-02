@@ -18,11 +18,6 @@ if status is-login
     set FZF_CTRL_T_OPTS "--preview 'bat -n --color=always {}'"
   end
 
-  if command -sq go
-    set -x GOPATH $HOME/go
-    set -x PATH $GOPATH/bin $PATH
-  end
-
   if command -sq pyenv
     set -x PYENV_ROOT $HOME/.pyenv
     set -x PATH $PYENV_ROOT/bin $PATH
