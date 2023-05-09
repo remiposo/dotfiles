@@ -2,12 +2,12 @@ local function switchWithCmd()
   local keyWithCmd = false
   local leftCmd    = 0x37
   local rightCmd   = 0x36
-  
+
   return function (event)
     local t = event:getType()
     local c = event:getKeyCode()
     local isCmd = event:getFlags()['cmd']
-  
+
     if t == hs.eventtap.event.types.keyDown then
       if isCmd then
         keyWithCmd = true
@@ -31,7 +31,7 @@ local function switchWithEsc()
 
   return function (event)
     local c = event:getKeyCode()
-    local isCtrl = event:getFlags()
+    local isCtrl = event:getFlags()['ctrl']
 
     if isCtrl and c == leftBracket then
       hs.keycodes.setMethod('Alphanumeric (Google)')
