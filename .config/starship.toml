@@ -1,9 +1,13 @@
 palette = "catppuccin_frappe"
 
+[line_break]
+disabled = true
+
 [character]
-success_symbol = "[[♥](green) ❯](maroon)"
-error_symbol = "[❯](red)"
-vicmd_symbol = "[❮](green)"
+disabled = true
+
+[battery]
+disabled = true
 
 [directory]
 truncation_length = 4
@@ -36,6 +40,3 @@ surface0 = "#414559"
 base = "#303446"
 mantle = "#292c3c"
 crust = "#232634"
-
-[battery]
-disabled = true

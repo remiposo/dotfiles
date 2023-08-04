@@ -11,3 +11,7 @@ fi
 if type bat > /dev/null 2>&1; then
   alias cat='bat'
 fi
+
+if type starship > /dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
