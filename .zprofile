@@ -21,6 +21,11 @@ if type pyenv > /dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
+if type go > /dev/null 2>&1; then
+  export GOPATH=$HOME/go
+  export PATH=$GOPATH/bin:$PATH
+fi
+
 if [ -f ~/.mixch_profile.zsh ]; then
   source ~/.mixch_profile.zsh
 fi
