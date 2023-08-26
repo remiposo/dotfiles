@@ -26,6 +26,10 @@ if type go > /dev/null 2>&1; then
   export PATH=$GOPATH/bin:$PATH
 fi
 
+if [ -f ~/.remiposo_profile.zsh ]; then
+  source ~/.remiposo_profile.zsh
+fi
+
 if [ -f ~/.mixch_profile.zsh ]; then
   source ~/.mixch_profile.zsh
 fi
