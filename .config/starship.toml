@@ -9,6 +9,9 @@ disabled = true
 [battery]
 disabled = true
 
+[gcloud]
+disabled = true
+
 [directory]
 truncation_length = 4
 style = "bold lavender"
