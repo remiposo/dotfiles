@@ -33,3 +33,7 @@ fi
 if [ -f ~/.mixch_profile.zsh ]; then
   source ~/.mixch_profile.zsh
 fi
+
+if [ -f ~/.orbstack/shell/init.zsh ]; then
+  source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+fi
