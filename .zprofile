@@ -38,6 +38,6 @@ if [ -f ~/.orbstack/shell/init.zsh ]; then
   source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 fi
 
-if [ -f /opt/homebrew/opt/asdf/asdf.sh ]; then
-  . /opt/homebrew/opt/asdf/asdf.sh
+if [ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]; then
+  . /opt/homebrew/opt/asdf/libexec/asdf.sh
 fi
