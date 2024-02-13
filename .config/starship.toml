@@ -1,16 +1,9 @@
 palette = "catppuccin_frappe"
 
-[line_break]
-disabled = true
-
 [character]
-disabled = true
-
-[battery]
-disabled = true
-
-[gcloud]
-disabled = true
+success_symbol = "[[♥](green) ❯](maroon)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
 
 [directory]
 truncation_length = 4
